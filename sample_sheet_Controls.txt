@@ -1,0 +1,17 @@
+Sample	Strain	Treatment	Batch	Resistance
+G4C1	GIM44	Control	A	Resistant
+G4C2	GIM44	Control	A	Resistant
+G4C4	GIM44	Control	A	Resistant
+M3C1	MUN33	Control	C	Resistant
+M3C2	MUN33	Control	C	Resistant
+M4C1	MUN24	Control	B	Resistant
+M4C2	MUN24	Control	B	Resistant
+M4C4	MUN24	Control	B	Resistant
+B7C1	BZ37	Control	A	Sensitive
+B7C2	BZ37	Control	A	Sensitive
+B7C4	BZ37	Control	A	Sensitive
+D6C1	DEN62	Control	B	Sensitive
+D6C2	DEN62	Control	B	Sensitive
+D6C3	DEN62	Control	B	Sensitive
+F9C3	FIN19	Control	C	Sensitive
+F9C4	FIN19	Control	C	Sensitive

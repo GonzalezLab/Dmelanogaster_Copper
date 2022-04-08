@@ -1,0 +1,6 @@
+Sample	Strain	Treatment	Batch	Resistance
+F9C3	FIN19	Control	C	Sensitive
+F9C4	FIN19	Control	C	Sensitive
+F9D1	FIN19	Treated	C	Sensitive
+F9D3	FIN19	Treated	C	Sensitive
+F9D4	FIN19	Treated	C	Sensitive

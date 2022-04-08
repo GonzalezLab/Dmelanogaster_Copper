@@ -1,0 +1,6 @@
+Sample	Strain	Treatment	Batch	Resistance
+M3C1	MUN33	Control	C	Resistant
+M3C2	MUN33	Control	C	Resistant
+M3D1	MUN33	Treated	C	Resistant
+M3D2	MUN33	Treated	C	Resistant
+M3D3	MUN33	Treated	C	Resistant

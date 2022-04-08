@@ -1,0 +1,7 @@
+Sample	Strain	Treatment	Batch
+M4C1	MUN24	Control	B
+M4C2	MUN24	Control	B
+M4C4	MUN24	Control	B
+M4D1	MUN24	Treated	B
+M4D2	MUN24	Treated	B
+M4D4	MUN24	Treated	B

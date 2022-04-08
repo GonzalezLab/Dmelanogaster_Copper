@@ -1,0 +1,7 @@
+Sample	Strain	Treatment	Batch
+B7C1	BZ37	Control	A
+B7C2	BZ37	Control	A
+B7C4	BZ37	Control	A
+B7D1	BZ37	Treated	A
+B7D3	BZ37	Treated	A
+B7D4	BZ37	Treated	A

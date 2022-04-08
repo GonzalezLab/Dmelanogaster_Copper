@@ -1,0 +1,7 @@
+Sample	Strain	Treatment	Batch
+D6C1	DEN62	Control	B
+D6C2	DEN62	Control	B
+D6C3	DEN62	Control	B
+D6D1	DEN62	Treated	B
+D6D2	DEN62	Treated	B
+D6D3	DEN62	Treated	B

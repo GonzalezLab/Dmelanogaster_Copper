@@ -1,0 +1,7 @@
+Sample	Strain	Treatment	Batch
+G4C1	GIM44	Control	A
+G4C2	GIM44	Control	A
+G4C4	GIM44	Control	A
+G4D1	GIM44	Treated	A
+G4D2	GIM44	Treated	A
+G4D4	GIM44	Treated	A
