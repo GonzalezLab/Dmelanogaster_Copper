@@ -5,6 +5,8 @@ Data and scripts of "Natural variation in copper tolerance in *Drosophila melano
 1. `DE_analysis.R`: R script for performing DE analyses, GO enrichment and visualizations
 2. `sample_sheet_*.txt` contain the table of sample information for DESeq2
 3. `counts_*.txt` are the raw gene counts 
+4. `dataLM.tab` data for performing the multiple linear regression model 
+5. `analysisLM.Rmd` Rmarkdown for performing the multiple linear regression model 
 
 # Reference
 
