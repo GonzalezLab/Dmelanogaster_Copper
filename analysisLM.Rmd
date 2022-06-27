@@ -11,21 +11,23 @@ library(MASS)
 library(jtools)
 library(ggplot2)
 library(wesanderson)
+library(car)
+library(cowplot)
 ```
 
 ## Read data
 
-From **Appendix 1** we take  the information on `repeat`, `location`, `LT50`, `Latitude`, `Longitude`, `Dis10`, `Dis5`, `LUCAS` and `Strain` (Appendix 1).
+From **Appendix 1** we take  the information on `repeat`, `location`, `LT50`, `Latitude`, `Longitude`, and `Strain` (Appendix 1, and Mortality data).
 
 ```{r info1, eval=FALSE}
-info1 <- read.table("info1.tab", header = T, sep = "\t", stringsAsFactors = T)
+info1 <- read.table("info1_revised.tab", header = T, sep = "\t", stringsAsFactors = T)
 head(info1)
 ```
 
-From **Appendix 2** we take the information on pollutants of each location, and the urban category.
+From **Appendix 2** we take the information on pollutants of each location, the distance to the closest city of >50k inhabitants, and the urban category.
 
 ```{r info2, eval=FALSE}
-info2 <- read.table("info2.tab", header = T, sep = "\t", stringsAsFactors = T)
+info2 <- read.table("info2_revised.tab", header = T, sep = "\t", stringsAsFactors = T)
 info2
 ```
 
@@ -33,9 +35,10 @@ Data is merged by `Strain`, so we create a table with 97 observations and 16 var
 
 ```{r merge}
 #data <- merge(info1, info2, by="Strain")
-#write.table(data, "dataLM.tab", col.names = T, row.names = F, sep = "\t", quote = F)
-data <- read.table("dataLM.tab", header = T, sep = "\t", stringsAsFactors = T)
+#write.table(data, "dataLM_revised.tab", col.names = T, row.names = F, sep = "\t", quote = F)
+data <- read.table("dataLM_revised.tab", header = T, sep = "\t", stringsAsFactors = T)
 head(data)
+data$AreaClassification <- factor(data$AreaClassification, levels=c("Urban", "Semi-urban", "Rural"))
 ```
 
 ## Linear models
@@ -43,155 +46,148 @@ head(data)
 LM with all variables:
 
 ```{r lm-all}
-lmAll = lm(LT50  ~ Latitude + Longitude + Location +
-           Dis10 + Dis50 +  
-           LUCAS + PM10 + PM2.5 + 
+lmAll = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM10 + PM2.5 + 
            Arsenic + Cadium + Lead +
-           UrbanCategoryF,
+           AreaClassification,
          data = data) 
 summary(lmAll)
 ```
 
-We get a warning about the coefficients: *12 not defined because of singularities*. This is because variables are correlated (correlation's coefficients are 1). This is expected because the latitude, longitude and location are the same, and the distances are also highly correlated with the urban category, as they were inferred by them. 
-
-**So we remove the variables that are highly correlated, we have two possibilities:**
-
-- 1. With latitude and longitude but remove the urban category:
-
-```{r lm1a}
-lm1a = lm(LT50  ~ Latitude + Longitude + Dis10 + Dis50+
-                 LUCAS + PM10 + PM2.5 + 
-                 Arsenic + Cadium + Lead,
-               data = data) 
-summary(lm1a) 
-```
-
-- 2. With urban category but removing latitude and longitude.
-
-```{r lm1b}
-lm1b = lm(LT50  ~ Dis10 + Dis50 +  
-                 LUCAS + PM10 + PM2.5 + 
-                 Arsenic + Cadium + Lead +
-                 UrbanCategoryF,
-               data = data) 
-summary(lm1b) 
-```
-
-These two models take into account the maximum amount of variables while avoiding singularities. Both models are very similar and explain 19% of the variance of LT50, but they are not significant (p-values = 0.06).
-
-### Remove variables
+### Backward stepwise regression
 We want the model with only relevant variables. We can use `dropterm()` to remove variables that are not informative. The model should  be explaining the same amount of variance but only with the relevant variables.
 
 The procedure is to remove variables 1 by 1, starting from the least significant, 
 
-```{r lm1b-drop-term-1}
-dropterm(lm1b, test = "F")
+```{r lmAll-drop-term-1}
+dropterm(lmAll, test = "F")
 ```
 
-We first remove `Arsenic`.
+We first remove `Lead`, as it is the least significant variable.
 
 ```{r lm2}
-lm2 = lm(LT50  ~ Dis10 + Dis50 +  
-                 LUCAS + PM10 + PM2.5 + 
-                 Cadium + Lead +
-                 UrbanCategoryF,
-               data = data) 
+lm2 = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM10 + PM2.5 + 
+           Arsenic + Cadium + 
+           AreaClassification,
+         data = data) 
 summary(lm2) 
+
+
 ```
 
 
-```{r lm1b-drop-term-2}
+```{r lm-drop-term-2}
 dropterm(lm2, test = "F")
 ```
 
 We remove `PM10`.
 
 ```{r lm3}
-lm3 = lm(LT50  ~ Dis10 + Dis50 +  
-                 LUCAS + PM2.5 + 
-                 Cadium + Lead +
-                 UrbanCategoryF,
-               data = data) 
+lm3 = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM2.5 + 
+           Arsenic + Cadium + 
+           AreaClassification,
+         data = data)  
 summary(lm3) 
 ```
 
-
-
-```{r lm1b-drop-term-3}
+```{r lm-drop-term-3}
 dropterm(lm3, test = "F")
-```
-
-We remove `Dis50`.
-
-```{r lm4}
-lm4 = lm(LT50  ~ Dis10 +  
-                 LUCAS + PM2.5 + 
-                 Cadium + Lead +
-                 UrbanCategoryF,
-               data = data) 
-summary(lm4) 
-```
-
-
-```{r lm1b-drop-term-4}
-dropterm(lm4, test = "F")
-```
-
-We remove `PM2.5`.
-
-```{r lm5}
-lm5 = lm(LT50  ~ Dis10 +  
-                 LUCAS + 
-                 Cadium + Lead +
-                 UrbanCategoryF,
-               data = data) 
-summary(lm5) 
-```
-
-
-```{r lm1b-drop-term-5}
-dropterm(lm5, test = "F")
 ```
 
 We remove `Cadium`.
 
+```{r lm4}
+lm4 = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM2.5 + 
+           Arsenic +  
+           AreaClassification,
+         data = data)  
+summary(lm4) 
+```
+
+```{r lm-drop-term-4}
+dropterm(lm4, test = "F")
+```
+We remove `Arsenic`.
+
+```{r lm5}
+lm5 = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM2.5 + 
+           AreaClassification,
+         data = data)  
+summary(lm5) 
+
+```
+
+
+```{r lm-drop-term-5}
+dropterm(lm5, test = "F")
+```
+We remove `PM2.5`.
+
 ```{r lm6}
-lm6 = lm(LT50  ~ Dis10 +  
-                 LUCAS + 
-                 Lead +
-                 UrbanCategoryF,
-               data = data) 
+lm6 = lm(LT50  ~ Longitude + Latitude +
+           Copper + 
+           AreaClassification,
+         data = data)  
 summary(lm6) 
 ```
 
-
-```{r lm1b-drop-term-6}
+```{r lm-drop-term-6}
 dropterm(lm6, test = "F")
 ```
 
-Because now all terms are significant, it means that the relevant variables to explain LT50 are `Dis10`, `LUCAS`, `Lead` and `UrbanCategoryF`.
+We remove `Longitude`.
 
-We explain 14% of the variance, and the p-value is 0.02. The most important variable is `LUCAS`, followed by `Urban category - Urban`. `Semi` is not significant and `Dis10` is marginally ignificant. 
+```{r lm7}
+lm7 = lm(LT50  ~  Latitude +
+           Copper + 
+           AreaClassification,
+         data = data)  
+summary(lm7) 
+```
+
+```{r lm-drop-term-7}
+dropterm(lm7, test = "F")
+```
+
+We remove `Copper`.
+
+```{r lm8}
+lm8 = lm(LT50  ~  Latitude +
+           AreaClassification,
+         data = data)  
+summary(lm8) 
+
+Anova(lm8)
+```
+
+```{r lm-drop-term-8}
+dropterm(lm8, test = "F")
+```
+
+Because now all terms are significant, it means that the relevant variables to explain LT50 are `Latitude` and `AreaClassification`.
+
+We explain 12% of the variance, and the p-value is 0.008. The most important variable is  `Urban category - Urban`.  
 
 
 ### Plots
 
 
 ```{r plots}
-plot_summs(lm6)
+plot_summs(lm8)
 
-effect_plot(lm6, pred = LUCAS, interval = TRUE, plot.points = TRUE, 
+a<-effect_plot(lm8, pred = Latitude, interval = TRUE, plot.points = TRUE, 
             jitter = 0.05)
-ggsave(filename = "effect_plot_LUCAS.png", plot = last_plot())
 
-effect_plot(lm6, pred = UrbanCategoryF, interval = TRUE, plot.points = TRUE, 
-            jitter = 0.05, x.label = "Urban category")
-ggsave(filename = "effect_plot_UrbanCategory.png", plot = last_plot())
-
-
-data$UrbanCategoryF <- factor(data$UrbanCategoryF, levels=c("Urban", "Semi","Rural"))
-ggplot(data, aes(x=UrbanCategoryF, y=LT50, fill=UrbanCategoryF)) + 
-                  geom_boxplot(show.legend = FALSE) + scale_fill_manual(values = wes_palette("Zissou1", type = c("continuous"))) + geom_jitter(shape=16, position=position_jitter(0.2), show.legend = FALSE) + labs(x="", y = "LT50 values") + scale_x_discrete(breaks = c("Rural", "Semi", "Urban"), labels = c("R", "SU", "U"))
+b<-effect_plot(lm8, pred = AreaClassification, interval = TRUE, plot.points = TRUE, 
+            jitter = 0.05)
+plot_grid(a,b,nrow=1,labels=c("A", "B"))
+data$AreaClassification <- factor(data$AreaClassification, levels=c("Urban", "Semi-urban","Rural"))
+ggplot(data, aes(x=AreaClassification, y=LT50, fill=AreaClassification)) + 
+    geom_boxplot(show.legend = FALSE) + scale_fill_manual(values=c("gray25", "gray47", "gray77")) + geom_jitter(shape=16, position=position_jitter(0.2), show.legend = FALSE) + labs(x="", y = "LT50 values") + scale_x_discrete(breaks = c("Rural", "Semi-urban", "Urban"), labels = c("R", "SU", "U"))
 
  ggsave("Figure1D.pdf", width = 5)
 ```
