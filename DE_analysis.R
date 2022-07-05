@@ -87,7 +87,7 @@ sigOE_sensitive_C.vs.T  %>%
             DownRegulat = sum(log2FoldChange<0))
 
 #########
-# Compare Control vs Treated for all strains
+# Compare Control vs Treated for all strains (no interaction)
 # Gene counts
 unSortedCounts <- read.table(file="geneCounts.txt", sep="\t", stringsAsFactors=T, header=T, row.names="Geneid")
 countsFile <- unSortedCounts[ , order(names(unSortedCounts))]
@@ -131,6 +131,68 @@ length(intersect(sigOE_all_C.vs.T$gene, c(sigOE_resistant_C.vs.T$gene,sigOE_sens
 length(intersect(sigOE_all_C.vs.T$gene,sigOE_resistant_C.vs.T$gene))
 length(intersect(sigOE_all_C.vs.T$gene,sigOE_sensitive_C.vs.T$gene))
 length(intersect(intersect(sigOE_all_C.vs.T$gene,sigOE_resistant_C.vs.T$gene), intersect(sigOE_all_C.vs.T$gene,sigOE_sensitive_C.vs.T$gene)))
+
+#########
+# Compare Control vs Treated for all strains (interaction)
+# Gene counts
+unSortedCounts <- read.table(file="geneCounts.txt", sep="\t", stringsAsFactors=T, header=T, row.names="Geneid")
+countsFile <- unSortedCounts[ , order(names(unSortedCounts))]
+
+# Sample Sheet
+unSortedSheet <- read.table(file="sample_sheet.txt", sep="\t", stringsAsFactors=T, header=T)
+targetsFile <- unSortedSheet[order(unSortedSheet$Sample),]
+
+
+rownames(targetsFile) <- targetsFile$Sample
+identical(colnames(countsFile), rownames(targetsFile))
+colnames(countsFile) <- targetsFile$Sample
+
+colnames(targetsFile) <- c("Sample", "Strain", "Condition", "Batch", "Line")
+  
+ddsFullCountTable <- DESeqDataSetFromMatrix(
+  countData = countsFile,
+  colData = targetsFile,
+  design = ~ Line  + Condition + Line:Condition)
+ddsFullCountTable
+
+
+
+dds <- ddsFullCountTable
+dds$Condition <- relevel(dds$Condition, "Control")
+dds$Line <- relevel(dds$Line, "Sensitive")
+
+dds <- DESeq(dds)
+plotDispEsts(dds)
+
+res <- results(dds, contrast=c("Condition","Treated","Control"))
+res <- results(dds, list( c("Condition_Treated_vs_Control","LineResistant.ConditionTreated") ))
+res <- results(dds, list( c("Line_Resistant_vs_Sensitive","LineResistant.ConditionTreated") ))
+res <- results (dds, name="LineResistant.ConditionTreated")
+res <- results(dds, contrast=c("Line","Resistant","Sensitive"))
+
+head(res)
+resOrdered <- res[order(res$padj),]
+head(resOrdered)
+resultsNames(dds)
+
+res_tb <- res %>%
+  data.frame() %>%
+  rownames_to_column(var="gene") %>% 
+  as_tibble()
+
+sigOE_all_C.vs.T <- res_tb %>%
+  dplyr::filter(padj < 0.05 & abs(log2FoldChange) > log2(1.5))
+sigOE_all_C.vs.T
+write.table(sigOE_all_C.vs.T, "sigOE_interaction_C.vs.T_interaction.tab", col.names = T, row.names = F, quote = F, sep = "\t")
+
+
+length(intersect(sigOE_all_C.vs.T$gene, c(sigOE_resistant_C.vs.T$gene,sigOE_sensitive_C.vs.T$gene)))
+length(intersect(sigOE_all_C.vs.T$gene,sigOE_resistant_C.vs.T$gene))
+length(intersect(sigOE_all_C.vs.T$gene,sigOE_sensitive_C.vs.T$gene))
+length(intersect(intersect(sigOE_all_C.vs.T$gene,sigOE_resistant_C.vs.T$gene), intersect(sigOE_all_C.vs.T$gene,sigOE_sensitive_C.vs.T$gene)))
+
+write.table(sigOE_all_C.vs.T, "sigOE_all_C.vs.T.tab", col.names = T, row.names = F, quote = F, sep = "\t")
+
 
 #########
 # Compare Resistant vs Sensitive in control
@@ -220,6 +282,7 @@ sigOE_treated_S.vs.R <- res_tb %>%
 sigOE_treated_S.vs.R
 
 length(intersect(sigOE_control_S.vs.R$gene, sigOE_treated_S.vs.R$gene))
+
 
 # ANALYSIS PER STRAIN
 
