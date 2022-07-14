@@ -186,8 +186,24 @@ b<-effect_plot(lm8, pred = AreaClassification, interval = TRUE, plot.points = TR
             jitter = 0.05)
 plot_grid(a,b,nrow=1,labels=c("A", "B"))
 data$AreaClassification <- factor(data$AreaClassification, levels=c("Urban", "Semi-urban","Rural"))
-ggplot(data, aes(x=AreaClassification, y=LT50, fill=AreaClassification)) + 
-    geom_boxplot(show.legend = FALSE) + scale_fill_manual(values=c("gray25", "gray47", "gray77")) + geom_jitter(shape=16, position=position_jitter(0.2), show.legend = FALSE) + labs(x="", y = "LT50 values") + scale_x_discrete(breaks = c("Rural", "Semi-urban", "Urban"), labels = c("R", "SU", "U"))
 
- ggsave("Figure1D.pdf", width = 5)
+data$map<-""
+data[data$Strain=="ES_TEN" | data$Strain=="ES_COR" | data$Strain=="ES_GIM" | data$Strain=="ES_GUA" | data$Strain=="ES_TOM" | data$Strain=="IT_CAS" | data$Strain=="PT_REC",]$map<-"SE"
+data[data$Strain=="AT_MUT" | data$Strain=="DE_MUN" | data$Strain=="DK_JUT" | data$Strain=="FI_AKA" | data$Strain=="SE_LUN" ,]$map<-"NE"
+wilcox.test(data[data$map=="NE",]$LT50,data[data$map=="SE",]$LT50)
+data$map <- factor(data$map, levels=c("SE", "NE"))
+
+d<-ggplot(data, aes(x=AreaClassification, y=LT50, fill=AreaClassification)) + 
+    geom_boxplot(show.legend = FALSE) + scale_fill_manual(values=c("gray25", "gray47", "gray77")) + geom_jitter(shape=16, position=position_jitter(0.2), show.legend = FALSE) + labs(x="", y = "LT50 values") + scale_x_discrete(breaks = c("Rural", "Semi-urban", "Urban"), labels = c("R", "SU", "U")) + 
+  theme(axis.ticks = element_blank()) + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
+c<-ggplot(data, aes(x=map, y=LT50, fill=map)) + 
+    geom_boxplot(show.legend = FALSE) + scale_fill_manual(values=c("gray25", "gray47")) + geom_jitter(shape=16, position=position_jitter(0.2), show.legend = FALSE) + labs(x="", y = "LT50 values") + 
+  theme(axis.ticks = element_blank()) + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = "black"))
+
+plot_grid(c,d)
+
+ ggsave("Figure1CD.pdf", width = 7)
 ```
