@@ -8,7 +8,7 @@ Data and scripts of "Natural variation in copper tolerance in *Drosophila melano
 4. `dataLM.tab` data for performing the multiple linear regression model 
 5. `analysisLM.Rmd` Rmarkdown for performing the multiple linear regression model 
 6. Kaplan-Meier: `data_to_kaplan.pl` script to create input for survival analysis
-7. Kaplan-Meier: survival.R` R script to analyse mortality data (Kaplan-Meier plots and Log Rank Test in R)
+7. Kaplan-Meier: `survival.R` R script to analyse mortality data (Kaplan-Meier plots and Log Rank Test in R)
 
 # Reference
 
