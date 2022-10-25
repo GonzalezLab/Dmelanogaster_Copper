@@ -35,8 +35,8 @@ Data is merged by `Strain`, so we create a table with 97 observations and 16 var
 
 ```{r merge}
 #data <- merge(info1, info2, by="Strain")
-#write.table(data, "dataLM_revised.tab", col.names = T, row.names = F, sep = "\t", quote = F)
-data <- read.table("dataLM_revised.tab", header = T, sep = "\t", stringsAsFactors = T)
+#write.table(data, "dataLM.tab", col.names = T, row.names = F, sep = "\t", quote = F)
+data <- read.table("dataLM.tab", header = T, sep = "\t", stringsAsFactors = T)
 head(data)
 data$AreaClassification <- factor(data$AreaClassification, levels=c("Urban", "Semi-urban", "Rural"))
 ```
@@ -48,7 +48,7 @@ LM with all variables:
 ```{r lm-all}
 lmAll = lm(LT50  ~ Longitude + Latitude +
            Copper + PM10 + PM2.5 + 
-           Arsenic + Cadium + Lead +
+           Arsenic + Cadmium + Lead +
            AreaClassification,
          data = data) 
 summary(lmAll)
@@ -68,7 +68,7 @@ We first remove `Lead`, as it is the least significant variable.
 ```{r lm2}
 lm2 = lm(LT50  ~ Longitude + Latitude +
            Copper + PM10 + PM2.5 + 
-           Arsenic + Cadium + 
+           Arsenic + Cadmium + 
            AreaClassification,
          data = data) 
 summary(lm2) 
@@ -86,7 +86,7 @@ We remove `PM10`.
 ```{r lm3}
 lm3 = lm(LT50  ~ Longitude + Latitude +
            Copper + PM2.5 + 
-           Arsenic + Cadium + 
+           Arsenic + Cadmium + 
            AreaClassification,
          data = data)  
 summary(lm3) 
@@ -96,7 +96,7 @@ summary(lm3)
 dropterm(lm3, test = "F")
 ```
 
-We remove `Cadium`.
+We remove `Cadmium`.
 
 ```{r lm4}
 lm4 = lm(LT50  ~ Longitude + Latitude +
@@ -206,4 +206,10 @@ panel.background = element_blank(), axis.line = element_line(colour = "black"))
 plot_grid(c,d)
 
  ggsave("Figure1CD.pdf", width = 7)
+```
+
+## Correlation variables
+
+```{r corr}
+corrplot(cor(unique(na.omit(data[,c("LT50","Longitude","Latitude","Copper","PM10","PM2.5","Arsenic","Cadmium","Lead")]))), method="number",  type="upper", tl.col="black",tl.srt=45)
 ```
