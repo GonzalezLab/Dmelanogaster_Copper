@@ -1,4 +1,4 @@
-Strain	Repeat	Location	LT50	Latitude	Longitude	PM10	PM2.5	Arsenic	Cadium	Lead	Copper	AreaClassification
+Strain	Repeat	Location	LT50	Latitude	Longitude	PM10	PM2.5	Arsenic	Cadmium	Lead	Copper	AreaClassification
 AT_MUT	MA18	MA	61.6	48.38	15.56	20.959365	15.777636	0.653863	0.13	0.004831	18.6	Semi-urban
 AT_MUT	MA63	MA	46.04	48.38	15.56	20.959365	15.777636	0.653863	0.13	0.004831	18.6	Semi-urban
 AT_MUT	MA23	MA	49.17	48.38	15.56	20.959365	15.777636	0.653863	0.13	0.004831	18.6	Semi-urban
