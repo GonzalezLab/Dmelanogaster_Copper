@@ -13,6 +13,7 @@ library(ggplot2)
 library(wesanderson)
 library(car)
 library(cowplot)
+library(corrplot)
 ```
 
 ## Read data
@@ -72,8 +73,6 @@ lm2 = lm(LT50  ~ Longitude + Latitude +
            AreaClassification,
          data = data) 
 summary(lm2) 
-
-
 ```
 
 
@@ -118,7 +117,6 @@ lm5 = lm(LT50  ~ Longitude + Latitude +
            AreaClassification,
          data = data)  
 summary(lm5) 
-
 ```
 
 
@@ -213,3 +211,234 @@ plot_grid(c,d)
 ```{r corr}
 corrplot(cor(unique(na.omit(data[,c("LT50","Longitude","Latitude","Copper","PM10","PM2.5","Arsenic","Cadmium","Lead")]))), method="number",  type="upper", tl.col="black",tl.srt=45)
 ```
+
+## Same procedure starting with Arsenic and removing Cadmium
+
+### Linear models
+
+LM with all variables:
+
+```{r}
+lmAll = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM10 + PM2.5 + 
+           Arsenic + Lead +
+           AreaClassification,
+         data = data) 
+summary(lmAll)
+```
+
+### Backward stepwise regression
+
+```{r}
+dropterm(lmAll, test = "F")
+```
+
+We first remove `PM10`, as it is the least significant variable.
+
+```{r}
+lm2 = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM2.5 + 
+           Arsenic + Lead +
+           AreaClassification,
+         data = data) 
+summary(lm2) 
+```
+
+
+```{r}
+dropterm(lm2, test = "F")
+```
+
+We remove `Lead`.
+
+```{r}
+lm3 =  lm(LT50  ~ Longitude + Latitude +
+           Copper + PM2.5 + 
+           Arsenic + 
+           AreaClassification,
+         data = data)  
+summary(lm3) 
+```
+
+```{r}
+dropterm(lm3, test = "F")
+```
+
+We remove `Arsenic`.
+
+```{r}
+lm4 = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM2.5 + 
+           AreaClassification,
+         data = data)    
+summary(lm4) 
+```
+
+```{r}
+dropterm(lm4, test = "F")
+```
+We remove `PM2.5`.
+
+```{r}
+lm5 =  lm(LT50  ~ Longitude + Latitude +
+           Copper + 
+           AreaClassification,
+         data = data)    
+summary(lm5) 
+
+```
+
+
+```{r}
+dropterm(lm5, test = "F")
+```
+We remove `Longitude`.
+
+```{r}
+lm6 = lm(LT50  ~ Latitude +
+           Copper + 
+           AreaClassification,
+         data = data)   
+summary(lm6) 
+```
+
+```{r}
+dropterm(lm6, test = "F")
+```
+
+We remove `Copper`.
+
+```{r}
+lm7 = lm(LT50  ~ Latitude +
+           AreaClassification,
+         data = data)   
+summary(lm7) 
+
+Anova(lm7)
+```
+
+```{r}
+dropterm(lm7, test = "F")
+```
+
+
+Because now all terms are significant, it means that the relevant variables to explain LT50 are `Latitude` and `AreaClassification`.
+
+We explain 12% of the variance, and the p-value is 0.008. The most important variable is  `Urban category - Urban`.  
+
+
+## Same procedure starting with Cadmium and removing Arsenic
+
+### Linear models
+
+LM with all variables:
+
+```{r}
+lmAll = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM10 + PM2.5 + 
+           Cadmium + Lead +
+           AreaClassification,
+         data = data) 
+summary(lmAll)
+```
+
+### Backward stepwise regression
+
+```{r}
+dropterm(lmAll, test = "F")
+```
+
+We first remove `PM10`, as it is the least significant variable.
+
+```{r}
+lm2 = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM2.5 + 
+           Cadmium + Lead +
+           AreaClassification,
+         data = data) 
+summary(lm2) 
+
+
+```
+
+
+```{r}
+dropterm(lm2, test = "F")
+```
+
+We remove `Lead`.
+
+```{r}
+lm3 = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM2.5 + 
+           Cadmium  +
+           AreaClassification,
+         data = data) 
+summary(lm3) 
+```
+
+```{r}
+dropterm(lm3, test = "F")
+```
+
+We remove `Cadmium`.
+
+```{r}
+lm4 = lm(LT50  ~ Longitude + Latitude +
+           Copper + PM2.5 + 
+           AreaClassification,
+         data = data)   
+summary(lm4) 
+```
+
+```{r}
+dropterm(lm4, test = "F")
+```
+We remove `PM2.5`.
+
+```{r}
+lm5 = lm(LT50  ~ Longitude + Latitude +
+           Copper +
+           AreaClassification,
+         data = data)  
+summary(lm5) 
+
+```
+
+
+```{r}
+dropterm(lm5, test = "F")
+```
+We remove `Longitude`.
+
+```{r}
+lm6 = lm(LT50  ~  Latitude +
+           Copper +
+           AreaClassification,
+         data = data) 
+summary(lm6) 
+```
+
+```{r}
+dropterm(lm6, test = "F")
+```
+
+We remove `Copper`.
+
+```{r}
+lm7 = lm(LT50  ~  Latitude +
+           AreaClassification,
+         data = data) 
+summary(lm7) 
+
+Anova(lm7)
+```
+
+```{r}
+dropterm(lm7, test = "F")
+```
+
+
+Because now all terms are significant, it means that the relevant variables to explain LT50 are `Latitude` and `AreaClassification`.
+
+We explain 12% of the variance, and the p-value is 0.008. The most important variable is  `Urban category - Urban`.  
