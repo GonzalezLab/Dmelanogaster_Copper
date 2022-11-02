@@ -1,0 +1,126 @@
+Dimension	Value	GIM-012_treated	AKA-018_treated
+Lower PH	Residuals	4.95437183701697	-4.95437183701697
+Lower PH	p values	4e-06	4e-06
+Intermediate	Residuals	4.23391521526607	-4.23391521526607
+Intermediate	p values	0.000138	0.000138
+Higher PH	Residuals	-8.60149783788178	8.60149783788178
+Higher PH	p values	0	0
+Dimension	Value	GIM-012_treated	COR-018_treated
+Lower PH	Residuals	5.81308778478257	-5.81308778478257
+Lower PH	p values	0	0
+Intermediate	Residuals	2.03691429755869	-2.03691429755869
+Intermediate	p values	0.249952	0.249952
+Higher PH	Residuals	-7.17502632606979	7.17502632606979
+Higher PH	p values	0	0
+Dimension	Value	GIM-012_treated	JUT-008_treated
+Lower PH	Residuals	5.29256867293153	-5.29256867293153
+Lower PH	p values	1e-06	1e-06
+Intermediate	Residuals	5.99395195813916	-5.99395195813916
+Intermediate	p values	0	0
+Higher PH	Residuals	-10.1455400319509	10.1455400319509
+Higher PH	p values	0	0
+Dimension	Value	MUN-020_treated	AKA-018_treated
+Lower PH	Residuals	3.98709498488882	-3.98709498488882
+Lower PH	p values	0.000401	0.000401
+Intermediate	Residuals	1.94295439476784	-1.94295439476784
+Intermediate	p values	0.31213	0.31213
+Higher PH	Residuals	-4.92449561510006	4.92449561510006
+Higher PH	p values	5e-06	5e-06
+Dimension	Value	MUN-020_treated	COR-018_treated
+Lower PH	Residuals	4.84136394691748	-4.84136394691748
+Lower PH	p values	8e-06	8e-06
+Intermediate	Residuals	-0.39532232518079	0.39532232518079
+Intermediate	p values	1	1
+Higher PH	Residuals	-3.25153482166883	3.25153482166883
+Higher PH	p values	0.006887	0.006887
+Dimension	Value	MUN-020_treated	JUT-008_treated
+Lower PH	Residuals	4.29746897189826	-4.29746897189826
+Lower PH	p values	0.000104	0.000104
+Intermediate	Residuals	3.73871929650007	-3.73871929650007
+Intermediate	p values	0.00111	0.00111
+Higher PH	Residuals	-6.63596730150819	6.63596730150819
+Higher PH	p values	0	0
+Dimension	Value	MUN-008_treated	AKA-018_treated
+Lower PH	Residuals	4.61615480070969	-4.61615480070969
+Lower PH	p values	2.3e-05	2.3e-05
+Intermediate	Residuals	-0.644206216196237	0.644206216196237
+Intermediate	p values	1	1
+Higher PH	Residuals	-3.27277855695178	3.27277855695178
+Higher PH	p values	0.00639	0.00639
+Dimension	Value	MUN-008_treated	COR-018_treated
+Lower PH	Residuals	5.47371540504477	-5.47371540504477
+Lower PH	p values	0	0
+Intermediate	Residuals	-3.09089666431801	3.09089666431801
+Intermediate	p values	0.011973	0.011973
+Higher PH	Residuals	-1.47678305898201	1.47678305898201
+Higher PH	p values	0.838403	0.838403
+Dimension	Value	MUN-008_treated	JUT-008_treated
+Lower PH	Residuals	4.9464283363628	-4.9464283363628
+Lower PH	p values	5e-06	5e-06
+Intermediate	Residuals	1.17611883818293	-1.17611883818293
+Intermediate	p values	1	1
+Higher PH	Residuals	-5.03369162346912	5.03369162346912
+Higher PH	p values	3e-06	3e-06
+Dimension	Value	GIM-012_control	AKA-018_control
+Lower PH	Residuals	0.925845831537072	-0.925845831537072
+Lower PH	p values	1	1
+Intermediate	Residuals	-0.647503699709874	0.647503699709874
+Intermediate	p values	1	1
+Higher PH	Residuals	-0.893717375877154	0.893717375877154
+Higher PH	p values	1	1
+Dimension	Value	GIM-012_control	COR-018_control
+Lower PH	Residuals	1.58383950972468	-1.58383950972468
+Lower PH	p values	0.679381	0.679381
+Intermediate	Residuals	-1.21018929639078	1.21018929639078
+Intermediate	p values	1	1
+Higher PH	Residuals	-1.16983770584824	1.16983770584824
+Higher PH	p values	1	1
+Dimension	Value	GIM-012_control	JUT-008_control
+Lower PH	Residuals	4.60288627903442	-4.60288627903442
+Lower PH	p values	2.5e-05	2.5e-05
+Intermediate	Residuals	-3.06567520852236	3.06567520852236
+Intermediate	p values	0.013031	0.013031
+Higher PH	Residuals	-3.21069157022818	3.21069157022818
+Higher PH	p values	0.007945	0.007945
+Dimension	Value	MUN-020_control	AKA-018_control
+Lower PH	Residuals	1.30848130450156	-1.30848130450156
+Lower PH	p values	1	1
+Intermediate	Residuals	-1.04120037211535	1.04120037211535
+Intermediate	p values	1	1
+Higher PH	Residuals	-0.893717375877154	0.893717375877154
+Higher PH	p values	1	1
+Dimension	Value	MUN-020_control	COR-018_control
+Lower PH	Residuals	1.96398277444269	-1.96398277444269
+Lower PH	p values	0.297193	0.297193
+Intermediate	Residuals	-1.6026150525914	1.6026150525914
+Intermediate	p values	0.654118	0.654118
+Higher PH	Residuals	-1.16983770584824	1.16983770584824
+Higher PH	p values	1	1
+Dimension	Value	MUN-020_control	JUT-008_control
+Lower PH	Residuals	4.94458232464154	-4.94458232464154
+Lower PH	p values	5e-06	5e-06
+Intermediate	Residuals	-3.43186806515117	3.43186806515117
+Intermediate	p values	0.003597	0.003597
+Higher PH	Residuals	-3.21069157022818	3.21069157022818
+Higher PH	p values	0.007945	0.007945
+Dimension	Value	MUN-008_control	AKA-018_control
+Lower PH	Residuals	-1.20488394380565	1.20488394380565
+Lower PH	p values	1	1
+Intermediate	Residuals	0.987014836945114	-0.987014836945114
+Intermediate	p values	1	1
+Higher PH	Residuals	0.63072548765374	-0.63072548765374
+Higher PH	p values	1	1
+Dimension	Value	MUN-008_control	COR-018_control
+Lower PH	Residuals	-0.534962802851552	0.534962802851552
+Lower PH	p values	1	1
+Intermediate	Residuals	0.414092255356571	-0.414092255356571
+Intermediate	p values	1	1
+Higher PH	Residuals	0.326778377415071	-0.326778377415071
+Higher PH	p values	1	1
+Dimension	Value	MUN-008_control	JUT-008_control
+Lower PH	Residuals	2.78950360881562	-2.78950360881562
+Lower PH	p values	0.031673	0.031673
+Intermediate	Residuals	-1.61689029200715	1.61689029200715
+Intermediate	p values	0.635412	0.635412
+Higher PH	Residuals	-2.23506119120912	2.23506119120912
+Higher PH	p values	0.15248	0.15248

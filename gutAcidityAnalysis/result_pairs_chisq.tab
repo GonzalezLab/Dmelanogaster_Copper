@@ -1,0 +1,36 @@
+Comparison	X-squared	p-value
+GIM-012 vs AKA-018 - treated	76.3	2.68e-17
+Comparison	X-squared	p-value
+GIM-012 vs COR-018 - treated	63.9	1.33e-14
+Comparison	X-squared	p-value
+GIM-012 vs JUT-008 - treated	103	3.53e-23
+Comparison	X-squared	p-value
+MUN-020 vs AKA-018 - treated	27.7	9.51e-07
+Comparison	X-squared	p-value
+MUN-020 vs COR-018 - treated	25.5	2.89e-06
+Comparison	X-squared	p-value
+MUN-020 vs JUT-008 - treated	45	1.72e-10
+Comparison	X-squared	p-value
+MUN-008 vs AKA-018 - treated	21.8	1.84e-05
+Comparison	X-squared	p-value
+MUN-008 vs COR-018 - treated	31.9	1.2e-07
+Comparison	X-squared	p-value
+MUN-008 vs JUT-008 - treated	30.4	2.5e-07
+Comparison	X-squared	p-value
+GIM-012 vs AKA-018 - control	1.3	0.521
+Comparison	X-squared	p-value
+GIM-012 vs COR-018 - control	3.08	0.214
+Comparison	X-squared	p-value
+GIM-012 vs JUT-008 - control	23.7	7.1e-06
+Comparison	X-squared	p-value
+MUN-020 vs AKA-018 - control	2.02	0.365
+Comparison	X-squared	p-value
+MUN-020 vs COR-018 - control	4.26	0.119
+Comparison	X-squared	p-value
+MUN-020 vs JUT-008 - control	26.4	1.82e-06
+Comparison	X-squared	p-value
+MUN-008 vs AKA-018 - control	1.52	0.467
+Comparison	X-squared	p-value
+MUN-008 vs COR-018 - control	0.315	0.854
+Comparison	X-squared	p-value
+MUN-008 vs JUT-008 - control	9.47	0.0088
