@@ -15,13 +15,9 @@ Data and scripts of "Natural variation in copper tolerance in *Drosophila melano
 1. **Kaplan-Meier** folder: `data_to_kaplan.pl` script to create input for survival analysis. File `example.tab` is the input and `example_outputKM.tab` is the output.
 2. **Kaplan-Meier** folder: `survival.R` R script to analyse mortality data using output of `data_to_kaplan.pl` as input (Kaplan-Meier plots and log rank test in R)
 
-**Gut acidity analyses**
+**Gut acidity and feeding analyses**
 
-Scripts and data to perform the chi-square and post-hoc tests
-
-**Feeding analyses**
-
-Scripts and data to perform the t-tests
+Scripts and data to perform the chi-squares, post-hoc tests and t-test. Data to reproduce Figure 5.
 
 # Reference
 
