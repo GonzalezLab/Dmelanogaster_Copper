@@ -41,6 +41,27 @@ data <- read.table("dataLM.tab", header = T, sep = "\t", stringsAsFactors = T)
 head(data)
 data$AreaClassification <- factor(data$AreaClassification, levels=c("Urban", "Semi-urban", "Rural"))
 ```
+#### 
+
+Analysis figure 1C.
+
+```{r}
+data$par45 <- ""
+data[data$Location=="MA",]$par45 <- "NE"
+data[data$Location=="MUN",]$par45 <- "NE"
+data[data$Location=="DEN",]$par45 <- "NE"
+data[data$Location=="SW",]$par45 <- "NE"
+data[data$Location=="FIN",]$par45 <- "NE"
+data[data$Location=="BZ",]$par45 <- "SE"
+data[data$Location=="GIM",]$par45 <- "SE"
+data[data$Location=="TF",]$par45 <- "SE"
+data[data$Location=="TOM",]$par45 <- "SE"
+data[data$Location=="CAS",]$par45 <- "SE"
+data[data$Location=="RE",]$par45 <- "SE"
+data[data$Location=="GUA",]$par45 <- "SE"
+wilcox.test(data[data$par45=="NE" & data$Location!="MA",]$LT50,data[data$par45=="SE" & data$Location!="RE"  & data$Location!="CAS",]$LT50, alternative = "greater")
+wilcox.test(data[data$par45=="NE",]$LT50,data[data$par45=="SE",]$LT50,alternative = "greater")
+```
 
 ## Linear models
 

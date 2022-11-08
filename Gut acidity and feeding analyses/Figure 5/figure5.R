@@ -113,7 +113,14 @@ fig5C<-plot_grid(dataPH_treatment,dataPH_control,nrow = 1)
 
 for ( type in unique(dataPH$x) ) {
   for ( exp in c("Control","Treated") ) {
-    print(paste(type,exp, t.test(dataPH[dataPH$strain=="w1118; CG11594" & dataPH$type==exp & dataPH$x==type,7:9],dataPH[dataPH$strain=="w1118" & dataPH$type==exp & dataPH$x==type,7:9])$p.value))
+    if ( type == "Lower pH") {
+      alt="less"
+    } else if  ( type == "Higher pH") {
+      alt="greater"
+    } else {
+      alt="two.sided"
+    }
+    print(paste(type,exp, t.test(dataPH[dataPH$strain=="w1118; CG11594" & dataPH$type==exp & dataPH$x==type,7:9],dataPH[dataPH$strain=="w1118" & dataPH$type==exp & dataPH$x==type,7:9],alternative = alt)$p.value))
   }
 }
 
